@@ -1012,7 +1012,7 @@ function XymonProcsCPUUtilisation
         $script:XymonProcsCpuElapsed = (Get-Date).ticks - $script:XymonProcsCpuTStart
         $script:XymonProcsCpuTStart = (Get-Date).Ticks
     }
-    $script:XymonProcsCpuElapsed *= $script:numcores
+    $script:XymonProcsCpuElapsed *= ($script:numcores * $script:numcpus)
     
     foreach ($p in $script:procs) {
         # store the process name in XymonProcsCpu
@@ -1348,6 +1348,7 @@ function XymonCpu
     "CPU states:"
     "`ttotal`t{0}`%" -f [string]$totalcpu
     "`tcores: {0}" -f [string]$script:numcores
+    "`tcpus: {0}" -f [string]$script:numcpus
 
     if ($script:XymonProcsCpuElapsed -gt 0) {
         ""
